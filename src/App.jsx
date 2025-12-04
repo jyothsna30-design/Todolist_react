@@ -3,28 +3,54 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ToDoList from './Component/ToDoList'
-import {items} from './Component/Header'
+
 import "./Component/style.css"
 
 function App() {
+  const [arr, setArr] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
  
- const [search,setSearch] = useState("");
- const [filteredname,setFilteredname] = useState(items);
+  const handleAddItem = () => {
+    if (inputValue.trim() === "") return;
 
- function handleSearch(){
-  console.log(search)
-  const filtername = items.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase()));
-   setFilteredname(filtername);
-}
-  return (<>
-  <h1>To-Do-List</h1>
-  <div className="searchlist">
-    <input type="text" name=" " className="search" onChange={(e)=>setSearch(e.target.value)}></input>
-    <button className="btn" onClick={handleSearch}>search</button>
-  </div>
-  <ToDoList itemsData={filteredname}></ToDoList>
-  </>)
-   
+    const newItem = {
+      id: Date.now(),       
+      text: inputValue,
+      completed: false,
+    };
+
+    setArr([...arr, newItem]);
+    setInputValue("");
+  };
+
+  
+  const handleToggleComplete = (id) => {
+    const updated = arr.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo);
+    setArr(updated);
+  };
+
+ 
+  const handleDelete = (id) => {
+    setArr(arr.filter((todo) => todo.id !== id));
+  };
+
+  
+  const handleEdit = (id, newText) => {
+    const updated = arr.map((todo) => todo.id === id ? { ...todo, text: newText } : todo);
+    setArr(updated);
+  };
+
+  return (
+    <div>
+      <h1>To-Do List</h1>
+      <input type="text" placeholder="Enter a task" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+      <button onClick={handleAddItem}>Add</button>
+      <ToDoList todos={arr} onToggleComplete={handleToggleComplete} onDelete={handleDelete} onEdit={handleEdit}/>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
