@@ -16,14 +16,5 @@ function ToDoList({ todos, onToggleComplete, onDelete, onEdit }) {
     </ul>
   );
 }
-// function ToDoList({arr,onComplete,onDelete,onEdit}){
-//     return (<>
-//     <div className="list">
-//     {arr.map((data)=> (<ToDoItem key={data.id} arr={data} onComplete={onComplete} onDelete={onDelete} onEdit={onEdit}/>) )}
-    
-//     </div>
-    
-//     </>)
-// }
 
 export default ToDoList;
