@@ -13,22 +13,22 @@ function ToDoItem({ todo, onToggleComplete, onDelete, onEdit }) {
   };
 
   return (
-    
+    /*if editing then add newtext and show save button otherwise show edit and delete button*/ 
     <div className="items">
       
       {isEditing ? (
-        <>
+        <> 
           <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)}/>
           <button onClick={handleSave}>Save</button>
         </>
       ) : (
-        <>
+        <> 
           <span style={{fontSize:30,color:"burlywood"}}>{todo.text}</span>
            
           <button className="btn2" onClick={() => onToggleComplete(todo.id)}>
             {todo.completed && "✔"}
           </button>
-          <button onClick={() => setIsEditing(true)}>✍</button>
+          <button onClick={() => setIsEditing(true)}>✍</button> 
         </>
       )}
       <button onClick={() => onDelete(todo.id)}>🗑️</button>
